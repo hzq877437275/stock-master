@@ -91,25 +91,51 @@
 		</table>
 	</body>
 	<script>
+		var total; // 渲染总数
+		var length = 0; // 已经渲染条数
+		
 		$(function() {
-			var tableArray = getTableData(8000);// 创建表格数组
 			
-			initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));// 当总数大于3000前，每次只渲染前3000条
+			var count = diag();
 			
-			// 监听滚动条
-			$(window).scroll(function(event){
-				var scrollTop = $(this).scrollTop();
-			　　var scrollHeight = $(document).height();
-			　　var windowHeight = $(this).height();
-			　　if(scrollTop + windowHeight == scrollHeight){// 滚到底部触发
-					if (tableArray.length > 0){
-						initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));
+			var tableArray = getTableData(count);// 创建表格数组
+			total = tableArray.length || 0;
+			
+			if (total > 3000) {
+				initTable(tableArray.splice(0, tableArray.length > 50? 50: tableArray.length));// 当总数大于3000前，每次只渲染前3000条
+				var timer = setInterval(function(){
+	    			if (tableArray.length > 0){
+						initTable(tableArray.splice(0, tableArray.length > 50? 50: tableArray.length));
+					} else {
+						clearInterval(timer);
 					}
-			　　}
-				
-    		});
+	    		}, 0);
+			} else {
+				initTable(tableArray);
+			}
+			
+//			// 监听滚动条
+//			$(window).scroll(function(event){
+//				var scrollTop = $(this).scrollTop();
+//			　　var scrollHeight = $(document).height();
+//			　　var windowHeight = $(this).height();
+//			　　if(scrollTop + windowHeight == scrollHeight){// 滚到底部触发
+//					if (tableArray.length > 0){
+//						initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));
+//					}
+//			　　}
+//				
+//  		});
+    		
 			
 		});
+		
+		function diag(){
+		    var str=prompt("请输入列表总条数（输入值必须为正整数）","50");
+		    if(str){
+		    	return str;
+		    }
+		}
 		
 		/**
 		 * getTableData 获取数据
@@ -157,6 +183,8 @@
 		 * @param {Array} tableArray
 		 */
 		function initTable (tableArray){
+			length += tableArray.length;
+			
 			if (tableArray && tableArray.length > 0) {
 				var tdHtml = ''; //渲染html
 				var selectIndex; //选中元素下标
@@ -190,35 +218,37 @@
 				
 				$('.table-tbody-wrapper').append(tableArray);
 				
-				// 选中事件
-				$('.table-tbody-wrapper tr').remove('click').click(function(){
-					selectIndex = $(".table-tbody-wrapper tr").index(this);
-					$('.table-tbody-wrapper tr').removeClass('trActive');
-					$(this).addClass('trActive');
-				});
-				
-				// 监听键盘事件
-				$(document).remove('keydown').keydown(function(event){
-		          	if(event.keyCode == 38){ //监听上键
-		          		if (selectIndex != undefined && selectIndex > 0) {
-		          			$('.table-tbody-wrapper tr:eq('+selectIndex+')').removeClass('trActive');
-		          			$('.table-tbody-wrapper tr:eq('+(--selectIndex)+')').addClass('trActive');
-		          			
-		          			var selectOffsetTop = $('.table-tbody-wrapper tr:eq('+selectIndex+')').offset().top;
-		          			$('html,body').animate({scrollTop: selectOffsetTop - halfClientHeight}, 0);
-		          		}
-		          		event.preventDefault();
-			        }else if (event.keyCode == 40){  //监听下
-			        	if (selectIndex != undefined && selectIndex < $(".table-tbody-wrapper tr").length - 1) {
-			        		$('.table-tbody-wrapper tr:eq('+selectIndex+')').removeClass('trActive');
-		          			$('.table-tbody-wrapper tr:eq('+(++selectIndex)+')').addClass('trActive');
-		          			
-		          			var selectOffsetTop = $('.table-tbody-wrapper tr:eq('+selectIndex+')').offset().top;
-		          			$('html,body').animate({scrollTop: selectOffsetTop - halfClientHeight}, 0);
-			        	}
-			       		event.preventDefault();
-			        } 
-		      	});
+				if (total == length){
+					// 选中事件
+					$('.table-tbody-wrapper tr').remove('click').click(function(){
+						selectIndex = $(".table-tbody-wrapper tr").index(this);
+						$('.table-tbody-wrapper tr').removeClass('trActive');
+						$(this).addClass('trActive');
+					});
+					
+					// 监听键盘事件
+					$(document).keydown(function(event){
+			          	if(event.keyCode == 38){ //监听上键
+			          		if (selectIndex != undefined && selectIndex > 0) {
+			          			$('.table-tbody-wrapper tr:eq('+selectIndex+')').removeClass('trActive');
+			          			$('.table-tbody-wrapper tr:eq('+(--selectIndex)+')').addClass('trActive');
+			          			
+			          			var selectOffsetTop = $('.table-tbody-wrapper tr:eq('+selectIndex+')').offset().top;
+			          			$('html,body').animate({scrollTop: selectOffsetTop - halfClientHeight}, 0);
+			          		}
+			          		event.preventDefault();
+				        }else if (event.keyCode == 40){  //监听下
+				        	if (selectIndex != undefined && selectIndex < $(".table-tbody-wrapper tr").length - 1) {
+				        		$('.table-tbody-wrapper tr:eq('+selectIndex+')').removeClass('trActive');
+			          			$('.table-tbody-wrapper tr:eq('+(++selectIndex)+')').addClass('trActive');
+			          			
+			          			var selectOffsetTop = $('.table-tbody-wrapper tr:eq('+selectIndex+')').offset().top;
+			          			$('html,body').animate({scrollTop: selectOffsetTop - halfClientHeight}, 0);
+				        	}
+				       		event.preventDefault();
+				        } 
+			      	});
+				}
 			} else {
 				$('.table-tbody-wrapper').append('<tr><td colspan="19">无数据</td></tr>');
 			}
