@@ -3,12 +3,12 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-		<title>¹ÉÆ±</title>
+		<script src="jquery.js"></script>
+		<title>è‚¡ç¥¨</title>
 		
 		<style>
 			/*
-			 * ³õÊ¼»¯css
+			 * åˆå§‹åŒ–css
 			YUI 3.18.1 (build f7e7bcb)
 			Copyright 2014 Yahoo! Inc. All rights reserved.
 			Licensed under the BSD License.
@@ -67,58 +67,58 @@
 	<body>
 		<table border="1" bordercolor="#232935">
 			<tr>
-				<th>ĞòºÅ</th>
-				<th>Ãû³Æ</th>
-				<th>´úÂë</th>
-				<th>ÕÇ·ù</th>
-				<th>ÏÖ¼Û</th>
-				<th>ÕÇµø</th>
-				<th>³É½»Á¿</th>
-				<th>³É½»¶î</th>
-				<th>ÕÇËÙ</th>
-				<th>»»ÊÖ</th>
-				<th>Á¿±È</th>
-				<th>½ñ¿ª</th>
-				<th>×î¸ß</th>
-				<th>×îµÍ</th>
-				<th>×òÊÕ</th>
-				<th>ÊĞÓ¯ÂÊ</th>
-				<th>Õñ·ù</th>
-				<th>Î¯²î</th>
-				<th>Î¯±È</th>
+				<th>åºå·</th>
+				<th>åç§°</th>
+				<th>ä»£ç </th>
+				<th>æ¶¨å¹…</th>
+				<th>ç°ä»·</th>
+				<th>æ¶¨è·Œ</th>
+				<th>æˆäº¤é‡</th>
+				<th>æˆäº¤é¢</th>
+				<th>æ¶¨é€Ÿ</th>
+				<th>æ¢æ‰‹</th>
+				<th>é‡æ¯”</th>
+				<th>ä»Šå¼€</th>
+				<th>æœ€é«˜</th>
+				<th>æœ€ä½</th>
+				<th>æ˜¨æ”¶</th>
+				<th>å¸‚ç›ˆç‡</th>
+				<th>æŒ¯å¹…</th>
+				<th>å§”å·®</th>
+				<th>å§”æ¯”</th>
 			</tr>
 			<tbody class="table-tbody-wrapper"></tbody>
 		</table>
 	</body>
 	<script>
 		$(function() {
-			var tableArray = getTableData(5000);// ´´½¨±í¸ñÊı×é
+			var tableArray = getTableData(5000);// åˆ›å»ºè¡¨æ ¼æ•°ç»„
 			
-			initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));// µ±×ÜÊı´óÓÚ3000Ç°£¬Ã¿´ÎÖ»äÖÈ¾Ç°3000Ìõ
+			initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));// å½“æ€»æ•°å¤§äº3000å‰ï¼Œæ¯æ¬¡åªæ¸²æŸ“å‰3000æ¡
 			
-			// ¼àÌı¹ö¶¯Ìõ
+			// ç›‘å¬æ»šåŠ¨æ¡
 			$(window).scroll(function(event){
 				var scrollTop = $(this).scrollTop();
-			¡¡¡¡var scrollHeight = $(document).height();
-			¡¡¡¡var windowHeight = $(this).height();
-			¡¡¡¡if(scrollTop + windowHeight == scrollHeight){// ¹öµ½µ×²¿´¥·¢
+			ã€€ã€€var scrollHeight = $(document).height();
+			ã€€ã€€var windowHeight = $(this).height();
+			ã€€ã€€if(scrollTop + windowHeight == scrollHeight){// æ»šåˆ°åº•éƒ¨è§¦å‘
 					if (tableArray.length > 0){
 						initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));
 					}
-			¡¡¡¡}
+			ã€€ã€€}
 				
     		});
 			
 		});
 		
 		/**
-		 * getTableData »ñÈ¡Êı¾İ
+		 * getTableData è·å–æ•°æ®
 		 * 
 		 * @param {Number} count
 		 * return {Array} tableArray
 		 */
 		function getTableData(count){
-			var tableArray = []; //äÖÈ¾±í¸ñÊı×é
+			var tableArray = []; //æ¸²æŸ“è¡¨æ ¼æ•°ç»„
 			
 			if (count % 1 === 0) {
 				for(var i = 1; i <= count; i++) {
@@ -127,13 +127,13 @@
 	
 					tableArray.push({
 						num: i,
-						name: 'Æ½°²ÒøĞĞ' + i,
+						name: 'å¹³å®‰é“¶è¡Œ' + i,
 						code: '00' + i,
 						upRange: downMark + (Math.random() * 10).toFixed(2),
 						currentPrice: (Math.random() * 100).toFixed(2),
 						upDown: downMark + (Math.random() * 5).toFixed(2),
 						bargainAmount: (Math.random() * 100000).toFixed(0),
-						bargainMoney: i % 5 === 0 ? (Math.random() * 9999).toFixed(0) + 'Íò' : (Math.random() * 10).toFixed(2) + 'ÒÚ',
+						bargainMoney: i % 5 === 0 ? (Math.random() * 9999).toFixed(0) + 'ä¸‡' : (Math.random() * 10).toFixed(2) + 'äº¿',
 						upSpeed: (i % 8 === 0? '-' : '') + (Math.random() * 1).toFixed(2),
 						changeHands: (Math.random() * 10).toFixed(2) + '%',
 						quantityCompare: (Math.random() * 5).toFixed(2),
@@ -152,15 +152,15 @@
 		}
 		
 		/**
-		 * initTable ³õÊ¼»¯±í¸ñ
+		 * initTable åˆå§‹åŒ–è¡¨æ ¼
 		 * 
 		 * @param {Array} tableArray
 		 */
 		function initTable (tableArray){
 			if (tableArray && tableArray.length > 0) {
-				var tdHtml = ''; //äÖÈ¾html
-				var selectIndex; //Ñ¡ÖĞÔªËØÏÂ±ê
-				var halfClientHeight = ($(window).height() / 2); //»ñÈ¡¿ÉÊÓ´°¿ÚÒ»°ë¸ß¶È
+				var tdHtml = ''; //æ¸²æŸ“html
+				var selectIndex; //é€‰ä¸­å…ƒç´ ä¸‹æ ‡
+				var halfClientHeight = ($(window).height() / 2); //è·å–å¯è§†çª—å£ä¸€åŠé«˜åº¦
 				
 				$.each(tableArray, function(key, value) {
 					var upRangeColor = value.upRange == 0? '': (value.upRange > 0? 'red': 'green');
@@ -190,16 +190,16 @@
 				
 				$('.table-tbody-wrapper').append(tableArray);
 				
-				// Ñ¡ÖĞÊÂ¼ş
+				// é€‰ä¸­äº‹ä»¶
 				$('.table-tbody-wrapper tr').remove('click').click(function(){
 					selectIndex = $(".table-tbody-wrapper tr").index(this);
 					$('.table-tbody-wrapper tr').removeClass('trActive');
 					$(this).addClass('trActive');
 				});
 				
-				// ¼àÌı¼üÅÌÊÂ¼ş
+				// ç›‘å¬é”®ç›˜äº‹ä»¶
 				$(document).remove('keydown').keydown(function(event){
-		          	if(event.keyCode == 38){ //¼àÌıÉÏ¼ü
+		          	if(event.keyCode == 38){ //ç›‘å¬ä¸Šé”®
 		          		if (selectIndex != undefined && selectIndex > 0) {
 		          			$('.table-tbody-wrapper tr:eq('+selectIndex+')').removeClass('trActive');
 		          			$('.table-tbody-wrapper tr:eq('+(--selectIndex)+')').addClass('trActive');
@@ -208,7 +208,7 @@
 		          			$('html,body').animate({scrollTop: selectOffsetTop - halfClientHeight}, 0);
 		          		}
 		          		event.preventDefault();
-			        }else if (event.keyCode == 40){  //¼àÌıÏÂ
+			        }else if (event.keyCode == 40){  //ç›‘å¬ä¸‹
 			        	if (selectIndex != undefined && selectIndex < $(".table-tbody-wrapper tr").length - 1) {
 			        		$('.table-tbody-wrapper tr:eq('+selectIndex+')').removeClass('trActive');
 		          			$('.table-tbody-wrapper tr:eq('+(++selectIndex)+')').addClass('trActive');
@@ -220,7 +220,7 @@
 			        } 
 		      	});
 			} else {
-				$('.table-tbody-wrapper').append('<tr><td colspan="19">ÎŞÊı¾İ</td></tr>');
+				$('.table-tbody-wrapper').append('<tr><td colspan="19">æ— æ•°æ®</td></tr>');
 			}
 		}
 	</script>
