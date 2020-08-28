@@ -92,7 +92,7 @@
 	</body>
 	<script>
 		$(function() {
-			var tableArray = getTableData(5000);// 创建表格数组
+			var tableArray = getTableData(8000);// 创建表格数组
 			
 			initTable(tableArray.splice(0, tableArray.length > 3000? 3000: tableArray.length));// 当总数大于3000前，每次只渲染前3000条
 			
